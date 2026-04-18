@@ -55,3 +55,10 @@ To counter the bone artifacts, a mathematical **Skull-Stripping algorithm** was 
 
 ## 💡 Conclusion
 This project demonstrates that high-accuracy medical AI models can harbor deadly clinical flaws if left unchecked. A machine learning model in radiology must be rigorously audited by clinical experts to uncover "Clever Hans" effects and spurious correlations. True robustness requires integrating medical preprocessing (Skull Stripping, 3D Context, Segmentation) directly into the deep learning pipeline.
+
+🤝 Author & Contact
+This project was developed and audited by [Emrah Seker], a Medical Doctor specializing in Clinical AI Governance.
+
+LinkedIn: [Connect on LinkedIn]
+Email: [exhume19@gmail.com]
+Project Goal: Bridge the gap between engineering and clinical reality.
