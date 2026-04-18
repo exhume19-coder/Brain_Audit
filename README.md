@@ -59,6 +59,6 @@ This project demonstrates that high-accuracy medical AI models can harbor deadly
 🤝 Author & Contact
 This project was developed and audited by [Emrah Seker], a Medical Doctor specializing in Clinical AI Governance.
 
-LinkedIn: [Connect on LinkedIn]
+LinkedIn: [Connect on LinkedIn](https://www.linkedin.com/in/emrah-%C5%9Feker-037741237/)
 Email: [exhume19@gmail.com]
 Project Goal: Bridge the gap between engineering and clinical reality.
