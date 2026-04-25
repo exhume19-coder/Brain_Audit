@@ -75,5 +75,5 @@ The project uses the **RSNA Intracranial Hemorrhage Detection** dataset from Kag
 ## 📬 Contact & Collaboration
 If you are interested in Clinical AI Auditing, Neuroradiology, or AI Safety, feel free to reach out:
 
-- **Email:** [Senin E-postan Buraya]
-- **LinkedIn:** [Senin LinkedIn Profil Linkin Buraya]
+- **Email:** [exhume19@gmail.com]
+- **LinkedIn:** [[Senin LinkedIn Profil Linkin Buraya](https://www.linkedin.com/in/emrah-%C5%9Feker-037741237)]
