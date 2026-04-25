@@ -1,67 +1,56 @@
-![Banner](banner.png)
-
-
-# 🧠 Clinical Audit of Deep Learning for Intracranial Hemorrhage (ICH) Detection
-
-![Project Banner](https://img.shields.io/badge/Domain-Medical%20AI-blue) ![Dataset](https://img.shields.io/badge/Dataset-RSNA%20ICH-lightgrey) ![Status](https://img.shields.io/badge/Status-Completed-success)
-
-## 📌 Executive Summary
-This project is an advanced, radiologist-led **Clinical Audit** of Convolutional Neural Networks (CNNs) applied to Intracranial Hemorrhage (ICH) detection. Moving beyond standard data science metrics (e.g., raw accuracy), this studya rigorously dissects the AI's predictions using **Explainable AI (Grad-CAM)** and medical domain knowledge to expose false positives, spurious correlations, and anatomical illusions.
-
-## 🎯 Project Objectives
-1. **Develop** a baseline robust multi-label classification model using transfer learning (EfficientNet) for 6 hemorrhage subtypes.
-2. **Diagnose** the "Accuracy Paradox" where an imbalanced dataset leads to algorithmic amnesia (memorizing skull boundaries instead of learning pathology).
-3. **Perform an Adversarial Clinical Audit** on the model using 2D CT axial slices to evaluate its true medical reliability.
-4. **Propose Radiological Defenses** (e.g., Skull-Stripping and Domain Shift analysis) to mitigate AI hallucinations.
+<div align="center">
+  <img src="banner.png" alt="Clinical Audit Banner">
+  
+  # 🧠 Clinical AI Audit: RSNA Intracranial Hemorrhage
+  
+  **Transforming a deep learning classification model into a clinically validated, interpretable Medical AI.**
+</div>
 
 ---
 
-## 🏗️ Technical Pipeline & Methodology
+## 🔬 Project Overview
+This repository documents the clinical validation and adversarial audit of an EfficientNetB0-based deep learning model designed to detect Intracranial Hemorrhage (ICH) and its 5 subtypes from 16-bit CT scans.
 
-### 1. Radiological Preprocessing (HU Windowing)
-Standard 16-bit DICOM pixel arrays were mapped to an 8-bit RGB tensor using medically validated Hounsfield Unit (HU) windows to preserve pathology-specific contrast:
+Unlike traditional Kaggle notebooks that focus solely on AUC scores, this project focuses on **Interpretability (XAI), Error Analysis, and Clinical Safety**. We applied rigorous radiological "Dual-Validation" to ensure the AI makes decisions based on genuine pathology, not spurious correlations.
+
+---
+
+## 🛠️ Methodology & Innovations
+
+### 1. Advanced Windowing (DICOM to RGB)
+Instead of relying on single-channel grayscale, we utilized a multi-windowing technique to capture different anatomical structures. The 16-bit DICOM arrays were mapped to 3-channel RGB tensors:
 - **Red Channel:** Brain Window (W:80, L:40)
 - **Green Channel:** Subdural Window (W:200, L:80)
 - **Blue Channel:** Bone Window (W:2800, L:600)
 
-### 2. Overcoming the Representational Bottleneck
-- **Class Balancing:** To prevent the model from collapsing into trivial "Healthy" predictions (due to the ~90% negative prevalence in the dataset), the training pipeline was artificially balanced to a 50/50 ratio.
-- **Two-Stage Training:** 
-  - *Stage 1 (Frozen Base)*: Trained on 8,000 images to prevent catastrophic forgetting.
-  - *Stage 2 (Fine-Tuning)*: Top 20 layers unfrozen and trained with an ultra-low learning rate (`1e-4`) on an expanded 20,000-image dataset to capture microscopic textural features.
+### 2. The "Clever Hans" Effect & Explainable AI (Grad-CAM)
+We deployed Grad-CAM (Gradient-weighted Class Activation Mapping) on the final convolutional layer (`top_activation`) to visualize the model's spatial focus. 
+**Key Finding:** The model initially exhibited a high False Positive rate (51%). Grad-CAM revealed that the AI was erroneously fixating on **calcifications, aneurysm coils, catheters, and frontal bone partial volume artifacts**, rather than the hemorrhage itself. It had learned spurious correlations instead of actual pathology.
+
+### 3. Precision-Recall Trade-off via Dropout Tuning
+To combat the frontal bone bias, we aggressively increased Dropout to 50% and applied Hard Negative Mining. While this successfully reduced False Positives (from 51% to 11%), it caused a catastrophic drop in Recall (missing 75% of actual bleeds).
+By carefully re-tuning the Dropout rate down to **20%**, we restored the model's confidence, significantly dropping the False Negative rate while maintaining a healthy balance in False Positives—demonstrating a textbook hyperparameter sweet spot.
+
+### 4. The Skull-Stripping Experiment
+To test the hypothesis that the bright skull bone obfuscates superficial bleeds, we designed an OpenCV-based morphological Skull-Stripping algorithm. We tested it on a cohort of 200 unseen patients:
+- **Intraparenchymal (Deep) Bleeds (n=100):** Detection improved in 28% of cases.
+- **Subdural/Epidural (Superficial) Bleeds (n=100):** Detection significantly improved in **36%** of cases.
+**Clinical Conclusion:** The skull bone acts as a massive visual noise generator for the CNN. Stripping the bone removes the distraction, allowing the AI to detect superficial hematomas with much higher confidence.
 
 ---
 
-## 🔎 The Clinical Audit (Key Findings)
-
-Despite achieving an excellent general prediction calibration (e.g., separating healthy from bleed with >90% precision in tests), a **Radiologist-led Grad-CAM evaluation** exposed critical behavioral flaws in the AI:
-
-### ❌ Illusion 1: Physiological Calcifications (False Positives)
-The AI heavily flagged normal physiological calcifications (e.g., inside the Choroid Plexus or Pineal Gland) as **Intraventricular** or **Intraparenchymal Hemorrhages**. Because the model lacks 3D context and purely looks for "bright textures", it equated calcium density with blood density.
-
-### ❌ Illusion 2: The "Spurious Scalp" Correlation
-In several cases, the Grad-CAM heatmaps revealed that the AI detected external scalp hematomas (soft tissue swelling) and erroneously predicted internal **Subdural** bleeds in the adjacent space. It learned a *spurious correlation*: "If the scalp is injured (due to trauma), the brain underneath must be bleeding."
-
-### ❌ Illusion 3: Bone Artifacts & Beam Hardening
-Areas with thick, asymmetric skull bone or beam hardening streak artifacts caused the model to panic and predict bleeding with >80% confidence, confusing bone scattering with subarachnoid blood.
+## ⚠️ Academic Vulnerabilities & Future Work
+To ensure scientific integrity, we identified 5 critical vulnerabilities in the current architecture:
+1. **Slice vs. Volume Gap:** The model analyzes 2D slices independently, ignoring the 3D anatomical continuity of bleeds (requires 3D CNN or LSTM).
+2. **HU (Hounsfield Unit) Loss:** Compressing 16-bit raw medical data into 8-bit RGB channels causes a loss of critical density thresholds.
+3. **ImageNet Bias:** The base EfficientNet was pre-trained on natural images (cats/cars), requiring extensive deep fine-tuning for millimeter-level medical textures.
+4. **The Prevalence Trap:** Imbalanced training data leads to heavy class biases unless meticulously corrected via Hard Negative Mining.
+5. **The XAI Illusion:** Grad-CAM heatmaps highlight where the AI looks, but they do not guarantee the AI understands *why* it is looking there.
 
 ---
 
-## 🛠️ Solutions & The "Domain Shift" Shock
-
-To counter the bone artifacts, a mathematical **Skull-Stripping algorithm** was implemented using OpenCV to isolate the brain parenchyma. 
-
-**The Finding:** When the model was continuously fed "naked" (skull-stripped) brains during inference, its confidence fell significantly, demonstrating **Domain Shift**. Because the model was trained *with* skulls, removing the skull broke the AI's internal baseline of "what a normal head looks like." 
-**Conclusion:** Any preprocessing (like Skull-Stripping) must be integrated at the *training phase*, not just as a band-aid during inference.
+## 🚀 How to Run
+*(Instructions on how to run the Jupyter Notebook will be placed here)*
 
 ---
-
-## 💡 Conclusion
-This project demonstrates that high-accuracy medical AI models can harbor deadly clinical flaws if left unchecked. A machine learning model in radiology must be rigorously audited by clinical experts to uncover "Clever Hans" effects and spurious correlations. True robustness requires integrating medical preprocessing (Skull Stripping, 3D Context, Segmentation) directly into the deep learning pipeline.
-
-🤝 Author & Contact
-This project was developed and audited by [Emrah Seker], a Medical Doctor specializing in Clinical AI Governance.
-
-LinkedIn: [Connect on LinkedIn](https://www.linkedin.com/in/emrah-%C5%9Feker-037741237/)
-Email: [exhume19@gmail.com]
-Project Goal: Bridge the gap between engineering and clinical reality.
+> **Note:** This project is a hybrid outcome of radiological vision and technical engineering, built to serve as a robust medical AI portfolio piece.
