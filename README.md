@@ -1,3 +1,6 @@
+![Banner](banner.png)
+
+
 # 🧠 Clinical Audit of Deep Learning for Intracranial Hemorrhage (ICH) Detection
 
 ![Project Banner](https://img.shields.io/badge/Domain-Medical%20AI-blue) ![Dataset](https://img.shields.io/badge/Dataset-RSNA%20ICH-lightgrey) ![Status](https://img.shields.io/badge/Status-Completed-success)
