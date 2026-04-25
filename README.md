@@ -58,7 +58,7 @@ The project uses the **RSNA Intracranial Hemorrhage Detection** dataset from Kag
 ### 2. Execution
 - **Step 1:** Download the [Brain_Audit_Final_Lite.ipynb](Brain_Audit_Final_Lite.ipynb) from this repo.
 - **Step 2:** Upload to Kaggle and connect the RSNA competition dataset.
-- **Step 3:** Ensure `pydicom`, `opencv-python`, and `tensorflow` are installed.
+- **Step 3:** Ensure [pydicom](https://pydicom.github.io/), [opencv-python](https://pypi.org/project/opencv-python/), and [tensorflow](https://www.tensorflow.org/) are installed.
 - **Step 4:** Run all cells. The "Clinical Audit" section at the bottom will generate the final metrics.
 
 ---
