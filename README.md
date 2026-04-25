@@ -27,7 +27,14 @@ Instead of relying on single-channel grayscale, we utilized a multi-windowing te
 
 ### 2. The "Clever Hans" Effect & Explainable AI (Grad-CAM)
 We deployed Grad-CAM to visualize the model's spatial focus. 
+
+<div align="center">
+  <img src="calcification_bias.png" alt="Calcification Bias Example" width="800">
+  <p><i><b>Audit Evidence:</b> Normal CT (Left) vs. Grad-CAM activation (Right) erroneously fixating on <b>Choroid Plexus and Falx Cerebri calcifications</b> instead of actual pathology.</i></p>
+</div>
+
 **Audit Discovery:** The model initially exhibited a "Clever Hans" effect—it was occasionally right for the wrong reasons. It fixated on **Aneurysm Coils, Catheters, and Frontal Bone artifacts** instead of the actual blood.
+
 
 ### 3. Precision-Recall Trade-off (The Clinical Sweet Spot)
 Our audit revealed that over-correcting for False Positives (using 50% Dropout) led to a massive loss in Sensitivity (Recall). By fine-tuning the model to a **20% Dropout rate**, we achieved a clinically robust balance, significantly reducing missed bleeds (False Negatives).
