@@ -58,15 +58,19 @@ To maintain scientific integrity, we proactively identified these vulnerabilitie
 
 ## 🚀 How to Run
 
-### 1. Dataset
-The project uses the **RSNA Intracranial Hemorrhage Detection** dataset from Kaggle.
-- **Dataset Link:** [Kaggle Dataset](https://www.kaggle.com/c/rsna-intracranial-hemorrhage-detection/data)
+> [!IMPORTANT]
+> **Environment Requirement:** This notebook is specifically designed to run within the **Kaggle GPU Environment**. Local execution is not recommended due to the massive size of the RSNA DICOM dataset (hundreds of gigabytes) and the high GPU memory requirements for the EfficientNetB0 architecture.
 
-### 2. Execution
-- **Step 1:** Download the [Brain_Audit_Final_Lite.ipynb](Brain_Audit_Final_Lite.ipynb) from this repo.
-- **Step 2:** Upload to Kaggle and connect the RSNA competition dataset.
-- **Step 3:** Ensure [pydicom](https://pydicom.github.io/), [opencv-python](https://pypi.org/project/opencv-python/), and [tensorflow](https://www.tensorflow.org/) are installed.
-- **Step 4:** Run all cells. The "Clinical Audit" section at the bottom will generate the final metrics.
+### 1. Dataset & Environment
+1.  **Platform:** Create a new notebook on [Kaggle](https://www.kaggle.com/).
+2.  **Dataset:** Attach the [RSNA Intracranial Hemorrhage Detection](https://www.kaggle.com/c/rsna-intracranial-hemorrhage-detection/data) dataset to your notebook.
+3.  **Accelerator:** Enable **GPU T4 x2** or **P100** in the Kaggle settings.
+
+### 2. Execution Steps
+- **Step 1:** Download the [Brain_Audit_Final_Lite.ipynb](Brain_Audit_Final_Lite.ipynb) from this repository.
+- **Step 2:** Upload the `.ipynb` file to your Kaggle environment.
+- **Step 3:** Ensure essential libraries are available: `pip install pydicom opencv-python tensorflow`.
+- **Step 4:** Run all cells. The **"Clinical Audit"** section at the end will automatically perform the 200-patient validation and generate the audit statistics.
 
 ---
 
