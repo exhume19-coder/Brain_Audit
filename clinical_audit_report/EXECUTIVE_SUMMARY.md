@@ -1,6 +1,6 @@
 # Clinical Audit Executive Summary: AI Diagnostic Integrity
 
-**Author:** [Your Name / Clinical Lead]
+**Author:** [Emrah Seker], MD - Radiological AI Auditor
 **Status:** Audit Completed - Version 1.0
 
 ## 1. Audit Rationale
