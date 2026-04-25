@@ -70,3 +70,10 @@ The project uses the **RSNA Intracranial Hemorrhage Detection** dataset from Kag
 
 ---
 > **Note:** This project is a hybrid outcome of radiological vision and technical engineering, built to serve as a robust medical AI portfolio piece.
+
+---
+## 📬 Contact & Collaboration
+If you are interested in Clinical AI Auditing, Neuroradiology, or AI Safety, feel free to reach out:
+
+- **Email:** [Senin E-postan Buraya]
+- **LinkedIn:** [Senin LinkedIn Profil Linkin Buraya]
