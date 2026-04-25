@@ -56,7 +56,7 @@ The project uses the **RSNA Intracranial Hemorrhage Detection** dataset from Kag
 - **Dataset Link:** [Kaggle Dataset](https://www.kaggle.com/c/rsna-intracranial-hemorrhage-detection/data)
 
 ### 2. Execution
-- **Step 1:** Download the `Brain_Audit_Final_Lite.ipynb` from this repo.
+- **Step 1:** Download the [Brain_Audit_Final_Lite.ipynb](Brain_Audit_Final_Lite.ipynb) from this repo.
 - **Step 2:** Upload to Kaggle and connect the RSNA competition dataset.
 - **Step 3:** Ensure `pydicom`, `opencv-python`, and `tensorflow` are installed.
 - **Step 4:** Run all cells. The "Clinical Audit" section at the bottom will generate the final metrics.
@@ -64,9 +64,9 @@ The project uses the **RSNA Intracranial Hemorrhage Detection** dataset from Kag
 ---
 
 ## 📁 Repository Structure
-- `Brain_Audit_Final_Lite.ipynb`: The core code (cleaned of heavy outputs for fast loading).
-- `clinical_audit_report/`: (Coming Soon) Detailed per-patient audit logs and Grad-CAM screenshots.
-- `banner.png`: Professional project branding.
+- [Brain_Audit_Final_Lite.ipynb](Brain_Audit_Final_Lite.ipynb): The core code (cleaned of heavy outputs for fast loading).
+- [clinical_audit_report/](clinical_audit_report/): Detailed per-patient audit logs and [Executive Summary](clinical_audit_report/EXECUTIVE_SUMMARY.md).
+- [banner.png](banner.png): Professional project branding.
 
 ---
 > **Note:** This project is a hybrid outcome of radiological vision and technical engineering, built to serve as a robust medical AI portfolio piece.
